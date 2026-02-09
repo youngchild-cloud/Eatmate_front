@@ -62,7 +62,7 @@ const WriteMeetup = () => {
 
     if (imgFile) formData.append('bm_img', imgFile); // key 이름 중요(백엔드와 동일)
 
-    axios.post('http://localhost:9070/meetup', formData)
+    axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup', formData)
       .then(() => {
         alert('게시글이 등록되었습니다.');
         navigate('/meetup');

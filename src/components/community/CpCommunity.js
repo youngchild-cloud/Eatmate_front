@@ -13,12 +13,12 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
   const loadData = () => {
     if (!mypageUser) {
       // 커뮤니티
-      axios.get('http://localhost:9070/communitylist')
+      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/communitylist')
         .then(res => setData(res.data))
         .catch(err => console.log(err))
     } else {
       // 마이페이지 - 작성한 게시글
-      axios.get('http://localhost:9070/community', {
+      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community', {
         params: { user_no: mypageUser, board_cate: mypageCategory }
       })
         .then(res => setData(res.data))
@@ -41,7 +41,7 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
               <div className="comm-top">
                 {/* 프로필 사진 public */}
                 <div className="img-box">
-                  <img src={`http://localhost:9070/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
+                  <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
                 </div>
                 {/* 닉네임 + 등록시간 */}
                 <p className='txt-box'>

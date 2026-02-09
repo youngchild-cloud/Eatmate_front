@@ -10,7 +10,7 @@ function MeetupList(props) {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://localhost:9070/meetup/all');
+      const res = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/all');
       setData(res.data);
     } catch (err) {
       console.log(err.respone.data.error);
@@ -24,7 +24,7 @@ function MeetupList(props) {
   const deleteData = async (bm_no, u_nick) => {
     if (window.confirm(`${u_nick}님의 게시글을 삭제하시겠습니까?`)) {
       try {
-        await axios.delete(`http://localhost:9070/admin/meetup/${bm_no}`);
+        await axios.delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/meetup/${bm_no}`);
 
         alert(`선택하신 ${u_nick}님의 게시글을 삭제했습니다.`);
         loadData();
@@ -82,7 +82,7 @@ function MeetupList(props) {
                     <td>{item.u_nick}</td>
                     <td>{item.bm_title}</td>
                     <td>{item.bm_desc}</td>
-                    <td className='imgtd'><img src={`http://localhost:9070/uploads/meetup/${item.bm_img}`} alt="탐방 사진" ></img></td>
+                    <td className='imgtd'><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/meetup/${item.bm_img}`} alt="탐방 사진" ></img></td>
                     <td>{item.bm_m_res}</td>
                     <td>{item.bm_m_date}</td>
                     <td>{item.bm_heart}</td>

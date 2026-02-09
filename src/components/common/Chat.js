@@ -19,7 +19,7 @@ function Chat({ p_board_cate, p_board_no }) {
 
   const loadData = async () => {
     try {
-      const res = await axios.post('http://localhost:9070/common/chat', boardInfo);
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/common/chat', boardInfo);
 
       setChatDate(res.data);
     } catch (err) {

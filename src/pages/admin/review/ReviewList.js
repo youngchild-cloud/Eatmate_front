@@ -9,7 +9,7 @@ function ReviewList(props) {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://localhost:9070/review/all');
+      const res = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/review/all');
       setData(res.data);
     } catch (err) {
       console.log(err.response.data.error);
@@ -21,11 +21,10 @@ function ReviewList(props) {
   }, []);
 
   const deleteData = async (br_no, u_nick) => {
-    if (window.confirm(`${u_nick}님의 리뷰를 삭제하시겠습니까?`))
-    {
+    if (window.confirm(`${u_nick}님의 리뷰를 삭제하시겠습니까?`)) {
       try {
         await axios
-        .delete(`http://localhost:9070/admin/review/${br_no}`);
+          .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/review/${br_no}`);
 
         alert(`선택하신 ${u_nick}님의 리뷰를 삭제했습니다.`);
         loadData();
@@ -81,7 +80,7 @@ function ReviewList(props) {
                       <td>{item.br_no}</td>
                       <td>{item.u_nick}</td>
                       <td>{item.br_desc}</td>
-                      <td className='imgtd'><img src={`http://localhost:9070/uploads/review/${item.br_img}`} alt="식당 사진"></img></td>
+                      <td className='imgtd'><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${item.br_img}`} alt="식당 사진"></img></td>
                       <td>{item.rt_name}</td>
                       <td>{item.br_rank}</td>
                       <td>{item.br_heart}</td>
@@ -89,7 +88,7 @@ function ReviewList(props) {
                       <td>{item.br_date}</td>
                       <td className='btn-td'>
                         <Link to={`/admin/board/review/modify/${item.br_no}`} className='btn-update btn'>수정</Link>
-                        <button className='btn-delete btn' onClick={()=> deleteData(item.br_no, item.u_no)}>삭제</button>
+                        <button className='btn-delete btn' onClick={() => deleteData(item.br_no, item.u_no)}>삭제</button>
                       </td>
                     </tr>
                   ))

@@ -74,7 +74,7 @@ const Join = () => {
     if (profileFile) formData.append('u_pic', profileFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.post('http://localhost:9070/join', formData);
+      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/join', formData);
 
       alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
       navigate('/login');

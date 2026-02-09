@@ -21,7 +21,7 @@ const ReviewDetail = () => {
 
   const loadData = async () => {
     try {
-      const res = await axios.post(`http://localhost:9070/review/detail/${br_no}`);
+      const res = await axios.post(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/review/detail/${br_no}`);
 
       setReviewData(res.data);
     } catch (err) {
@@ -41,7 +41,7 @@ const ReviewDetail = () => {
         <article className="review-con" key={reviewData.br_no}>
           <div className="profile-area">
             <div className="img-box">
-              <img src={`http://localhost:9070/uploads/user/${reviewData.u_pic}`} alt={`${reviewData.u_nick} 프로필`} />
+              <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${reviewData.u_pic}`} alt={`${reviewData.u_nick} 프로필`} />
             </div>
             <div className="txt-box">
               <strong className='name'>
@@ -58,31 +58,31 @@ const ReviewDetail = () => {
             {
               reviewData.br_img &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img}`} alt={`${reviewData.rt_name} 대표`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img}`} alt={`${reviewData.rt_name} 대표`} />
               </div>
             }
             {
               reviewData.br_img2 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img2}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img2}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img3 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img3}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img3}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img4 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img4}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img4}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img5 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img5}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img5}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
           </div>

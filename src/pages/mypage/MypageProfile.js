@@ -36,7 +36,7 @@ const MypageProfile = () => {
     }
 
     // 페이지에 들어왔을 때 기존 유저값이 나오게
-    axios.get(`http://localhost:9070/mypage/${user_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${user_no}`)
       .then(res => {
         setMyProfileInput(prev => ({
           ...prev,
@@ -93,7 +93,7 @@ const MypageProfile = () => {
     if (profileFile) formData.append('u_pic', profileFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.put('http://localhost:9070/mypage/profile/modify/', formData);
+      await axios.put('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/profile/modify/', formData);
 
       alert('프로필 수정이 완료되었습니다. 마이페이지로 이동합니다.');
       navigate('/mypage');

@@ -33,7 +33,7 @@ const WriteReview = () => {
     if (!word) return;
 
     try {
-      const res = await axios.post('http://localhost:9070/restaurant/search', { word });
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/restaurant/search', { word });
 
       setRtData(res.data);
     } catch (err) {
@@ -81,7 +81,7 @@ const WriteReview = () => {
     if (imgFile) formData.append('br_img', imgFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.post('http://localhost:9070/write/review', formData);
+      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/write/review', formData);
 
       alert('맛집 리뷰 글쓰기가 완료되었습니다. 맛집 리뷰 목록 페이지로 이동합니다.');
       navigate('/review');

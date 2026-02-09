@@ -7,48 +7,48 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function CommunityCreate(props) {
 
-const { bc_no } = useParams();
+  const { bc_no } = useParams();
 
-const [bcInput, setBcInput] = useState({
-  bc_title: '',
-  bc_desc: '',
-})
-
-const navigate = useNavigate();
-
-useEffect(() =>{
-  axios.get(`http://localhost:9070/community/detail/${bc_no}`)
-  .then(res => {
-    // console.log('서버 응답 값 : ', res.data);
-    setBcInput(res.data);
+  const [bcInput, setBcInput] = useState({
+    bc_title: '',
+    bc_desc: '',
   })
-  .catch(err => console.log('조회 오류 : ', err));
-}, [bc_no]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/detail/${bc_no}`)
+      .then(res => {
+        // console.log('서버 응답 값 : ', res.data);
+        setBcInput(res.data);
+      })
+      .catch(err => console.log('조회 오류 : ', err));
+  }, [bc_no]);
 
 
-const handleChange = (e) => {
-  setBcInput({
-    ...bcInput,
-    [e.target.name]: e.target.value
-  });
-}
-
-const handleSubmit = async (e) =>{
-  e.preventDefault();
-
-  try {
-    await axios.put(`http://localhost:9070/community/update/${bc_no}`, {
-      bc_title: bcInput.bc_title,
-      bc_desc: bcInput.bc_desc,
-    })
-
-    alert('게시글이 수정되었습니다.');
-
-    navigate('/admin/board/community')
-  }catch (err) {
-    console.log(err)
+  const handleChange = (e) => {
+    setBcInput({
+      ...bcInput,
+      [e.target.name]: e.target.value
+    });
   }
-}
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/update/${bc_no}`, {
+        bc_title: bcInput.bc_title,
+        bc_desc: bcInput.bc_desc,
+      })
+
+      alert('게시글이 수정되었습니다.');
+
+      navigate('/admin/board/community')
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -63,12 +63,12 @@ const handleSubmit = async (e) =>{
 
             <form onSubmit={handleSubmit}>
               <legend>게시글 수정</legend>
-              <PcInput type="input" name='bc_title' title='제목'  value={bcInput.bc_title} onChange={handleChange} />
+              <PcInput type="input" name='bc_title' title='제목' value={bcInput.bc_title} onChange={handleChange} />
               <PcInput type="input" name="bc_desc" title="내용" value={bcInput.bc_desc} onChange={handleChange} />
 
               <button type="submit">수정 완료</button>
             </form>
-            
+
           </div>
         </article>
       </section>

@@ -19,7 +19,7 @@ function CommunityDetail(props) {
   const decoded = token ? jwtDecode(token) : '';
 
   const loadData = () => {
-    axios.get(`http://localhost:9070/community/detail/${bc_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/detail/${bc_no}`)
       .then(res => {
         setData(res.data);
       })
@@ -42,7 +42,7 @@ function CommunityDetail(props) {
             <div className="comm-top">
               {/* 프로필 사진 public */}
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
               </div>
               {/* 닉네임 + 등록시간 */}
               <p className='txt-box'>

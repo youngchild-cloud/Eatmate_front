@@ -29,7 +29,7 @@ const Mypage = () => {
   useEffect(() => {
     const user_no = decoded.token_no;
 
-    axios.get(`http://localhost:9070/mypage/${user_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${user_no}`)
       .then(res => setMyPageDate(res.data))
       .catch(err => console.log(err))
   }, [])
@@ -50,7 +50,7 @@ const Mypage = () => {
         <TitleCenter title={'마이페이지'} />
 
         <div className="profile">
-          <div><img src={`http://localhost:9070/uploads/user/${mypageData.u_pic}`} alt="" /></div>
+          <div><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${mypageData.u_pic}`} alt="" /></div>
 
           <p className="profile-txt">
             {mypageData.u_nick}

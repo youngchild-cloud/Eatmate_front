@@ -35,7 +35,7 @@ function InputComment({ p_board_cate, p_board_no }) {
     }
 
     try {
-      await axios.post('http://localhost:9070/comment', form);
+      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/comment', form);
 
       alert('댓글이 등록되었습니다.');
       window.location.reload();
@@ -50,9 +50,9 @@ function InputComment({ p_board_cate, p_board_no }) {
         {
           decoded.token_profile
             ?
-            <img src={`http://localhost:9070/uploads/user/${decoded.token_profile}`} alt={`${decoded.token_nick} 프로필`} />
+            <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${decoded.token_profile}`} alt={`${decoded.token_nick} 프로필`} />
             :
-            <img src={`http://localhost:9070/uploads/user/default-user.png`} alt='기본 프로필' />
+            <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/default-user.png`} alt='기본 프로필' />
         }
       </div>
 
