@@ -1,0 +1,221 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+/*** 맛집 상세 메인 ***/
+body.restaurant-detail main {
+  padding: 0 0 vw-mo(130);
+}
+
+/*** 맛집 상세 ***/
+// 슬라이드(스와이퍼)와 정보(타이틀, 평점, 전화 등) section
+.restaurant-detail-infomation {
+  width: vw-mo(760);
+  margin: auto;
+
+  .inner {
+    padding: 0 0 vw-mo(30);
+  }
+}
+
+// 슬라이드(스와이퍼)
+.restaurant-detail-slide {
+  position: relative;
+
+  .common-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: vw-mo(55);
+    left: vw-mo(6);
+    z-index: 10;
+    width: vw-mo(64);
+    height: vw-mo(64);
+    background: rgba($color: $color-sub-black, $alpha: 0.6);
+    border-radius: 50%;
+
+    img {
+      width: vw-mo(15);
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .img-box {
+    width: 100%;
+    height: vw-mo(430);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .swiper-pagination {
+    display: inline-block;
+    top: auto;
+    bottom: vw-mo(20);
+    left: auto;
+    right: vw-mo(30);
+    width: auto;
+    padding: vw-mo(2) vw-mo(16);
+    background: rgba($color: $color-sub-black, $alpha: 0.6);
+    border-radius: vw-mo(50);
+    color: $color_white;
+    font-size: vw-mo(24);
+  }
+}
+
+// 정보(타이틀, 평점, 전화 등)
+.restaurant-detail-info {
+  .info-text {
+    padding: vw-mo(30) 0;
+  }
+
+  .title {
+    margin-bottom: vw-mo(10);
+    font-size: vw-mo(36);
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  .desc {
+    margin-bottom: vw-mo(10);
+  }
+
+  .disc {
+    color: $color_gray;
+    font-size: vw-mo(24);
+
+    span {
+      vertical-align: middle;
+    }
+  }
+
+  .rank {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: vw-mo(10);
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: vw-mo(24);
+      height: vw-mo(24);
+      background: url('../../assets/images/review/icon_rank.png') no-repeat center / contain;
+    }
+  }
+
+  .info-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    li {
+      width: 25%;
+      border-right: 1px solid $color_gray_light;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    a,
+    button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: vw-mo(6);
+      width: 100%;
+      height: vw-mo(140);
+      color: $color-gray;
+    }
+
+    img {
+      width: auto;
+      height: vw-mo(40);
+      object-fit: contain;
+    }
+
+    // act
+    button.act img {
+      filter: invert(32%) sepia(71%) saturate(2247%) hue-rotate(342deg) brightness(81%) contrast(94%);
+    }
+
+    button.act span {
+      color: $color-main;
+    }
+  }
+}
+
+// 리뷰 보기
+.restaurant-detail-review {
+  .restaurant-title-box {
+    position: relative;
+    margin-bottom: vw-mo(10);
+
+    .restaurant-title {
+      font-weight: bold;
+      font-size: vw-mo(30);
+    }
+
+    a {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      color: $color_sub_orange;
+      font-size: vw-mo(24);
+    }
+  }
+
+  .list {
+    li {
+      border-bottom: 1px solid $color-gray;
+    }
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: vw-mo(20) 0;
+    }
+
+    .img-box {
+      overflow: hidden;
+      width: vw-mo(170);
+      height: vw-mo(193);
+      border-radius: vw-mo(20);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .txt-box {
+      width: vw-mo(490);
+
+      .text {
+        margin-bottom: vw-mo(10);
+        font-size: vw-mo(30);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .rank5 {
+        margin-bottom: vw-mo(10);
+      }
+
+      .date {
+        font-size: vw-mo(24);
+        color: $color_gray;
+      }
+    }
+  }
+}

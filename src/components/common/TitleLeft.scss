@@ -1,0 +1,20 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.common-title-box {
+  position: relative;
+  margin-bottom: vw-mo(30);
+
+  .common-title {
+    font-size: vw-mo(44);
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  .btn-short {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+}

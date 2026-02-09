@@ -1,0 +1,35 @@
+// meetuplist.scss
+
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.meetup-list {
+  .tab-title {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: vw-mo(32);
+
+    li {
+      border-bottom: vw-mo(2) solid $color-gray;
+      width: vw-mo(350);
+      text-align: center;
+      padding-bottom: vw-mo(20);
+      cursor: pointer;
+    }
+
+    .act {
+      border-bottom: vw-mo(2) solid $color-main;
+      color: $color-main;
+    }
+  }
+
+  .tab-content {
+    .tab-content-list {
+      display: block;
+    }
+
+    .tab-content-list {
+      display: none;
+    }
+  }
+}

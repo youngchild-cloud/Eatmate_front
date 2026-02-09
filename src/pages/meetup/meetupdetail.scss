@@ -1,0 +1,134 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.meetup-detail {
+  .inner {
+    .user {
+      display: flex;
+      gap: vw-mo(20);
+      align-items: center;
+      padding-bottom: vw-mo(20);
+    }
+
+    .user-img {
+      width: vw-mo(64);
+      height: vw-mo(64);
+
+    }
+
+    .user-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .user-info {
+      color: $color-gray;
+      font-size: vw-mo(24);
+    }
+
+    .user-info-gap {
+      padding: 0 vw-mo(10);
+    }
+
+    .user-writer button {
+      display: block;
+    }
+
+    .meetup-writer {
+      position: relative;
+      right: vw-mo(20);
+      display: flex;
+      align-items: center;
+    }
+
+    .dot {
+      font-size: vw-mo(50);
+      line-height: vw-mo(10);
+      color: $color-gray-light;
+    }
+
+    .user-writer {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .opne-menu-btn {
+      position: absolute;
+      top: vw-mo(50);
+      left: vw-mo(-15);
+      width: vw-mo(82);
+      height: vw-mo(106);
+      font-size: vw-mo(24);
+      border-radius: vw-mo(10);
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.12);
+
+      padding-top: 10px;
+
+    }
+
+    .opne-menu-btn button {
+      margin: 0 auto;
+      line-height: vw-mo(43);
+    }
+
+
+    .content-box {
+      padding-bottom: vw-mo(60);
+
+      .content-img {
+        width: vw-mo(300);
+        height: vw-mo(340);
+        margin-bottom: vw-mo(20);
+        border-radius: vw-mo(10);
+        object-fit: cover;
+      }
+    }
+
+    .content-txt {
+      font-weight: bold;
+      font-size: vw-mo(30);
+    }
+
+    .content-txt-detail {
+      display: block;
+      font-weight: 400;
+      padding: vw-mo(10) 0 vw-mo(20) 0;
+    }
+
+    .content-info {
+      padding-bottom: vw-mo(20);
+
+      img {
+        width: vw-mo(30);
+      }
+    }
+
+    .content-info span {
+      color: $color-gray;
+      display: flex;
+      align-items: center;
+
+      &:not(:last-child) {
+        padding-bottom: vw-mo(6);
+      }
+    }
+
+    .content-info-txt img {
+      margin-right: vw-mo(10);
+    }
+
+    .btn-wide {
+      margin-bottom: vw-mo(20);
+    }
+
+    .meetup-toggle-btn .btn-wide {
+      background: $color-sub-orange;
+    }
+
+    .meetup-toggle-btn-close .btn-wide {
+      filter: contrast(0.8);
+    }
+  }
+}

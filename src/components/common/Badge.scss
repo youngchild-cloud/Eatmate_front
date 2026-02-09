@@ -1,0 +1,25 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.badge {
+  padding: vw-mo(4) vw-mo(10);
+  border-radius: vw-mo(50);
+  border: 1px solid #333;
+  font-size: vw-mo(20);
+  text-transform: uppercase;
+
+  &.badge-vip {
+    border-color: $color-main;
+    color: $color-main;
+  }
+
+  &.badge-gold {
+    border-color: $color-sub-orange;
+    color: $color-sub-orange;
+  }
+
+  &.badge-silver {
+    border-color: $color-sub-yellow;
+    color: $color-sub-yellow;
+  }
+}

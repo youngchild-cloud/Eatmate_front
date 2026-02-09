@@ -1,0 +1,15 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+@mixin btn-short() {
+  display: inline-block;
+  padding: vw-mo(10) vw-mo(20);
+  border: 1px solid $color-sub-orange;
+  border-radius: vw-mo(6);
+  color: $color-sub-orange;
+  font-size: vw-mo(24);
+}
+
+.btn-short {
+  @include btn-short();
+}

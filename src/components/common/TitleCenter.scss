@@ -1,0 +1,25 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.common-title-box-center {
+  display: block;
+  position: relative;
+  margin-bottom: vw-mo(30);
+
+  .common-title {
+    text-align: center;
+  }
+
+  .common-back {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: vw-mo(15);
+
+    img {
+      width: 100%;
+    }
+  }
+}

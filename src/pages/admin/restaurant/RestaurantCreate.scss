@@ -1,0 +1,8 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.admin-restaurant-create {
+  .pc-input-box__file {
+    margin-bottom: 20px;
+  }
+}

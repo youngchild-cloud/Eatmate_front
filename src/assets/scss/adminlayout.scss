@@ -1,0 +1,112 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+/* header */
+.admin-header {
+  position: fixed;
+  border-bottom: 1px solid $color-gray;
+  background: $color-white;
+  width: 100%;
+
+  .admin-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 252px;
+    position: relative;
+    width: 1600px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 0 30px;
+    color: $color-text;
+  }
+
+  h1 img {
+    width: 138px;
+    height: 60px;
+  }
+
+  .admin-menu {
+    ul {
+      display: flex;
+      gap: 50px;
+    }
+
+    li {
+      font-size: 24px;
+    }
+
+    .act {
+      font-weight: bold;
+      color: $color-main;
+    }
+  }
+
+  .admin-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 30px;
+    font-size: 16px;
+    color: $color-gray;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    p {
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    p span {
+      display: inline-block;
+      width: 14px;
+      height: 6px;
+      margin-left: 10px;
+      background: url('../../assets/images/admin/icon_arrow_b.png') no-repeat center / contain;
+      vertical-align: middle;
+    }
+
+    .up span {
+      transform: rotate(180deg);
+    }
+
+    .admin-logout-btn {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      padding: 6px 10px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 2px $color-gray;
+      color: $color-text;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+  }
+}
+
+/* footer */
+.admin-footer {
+  text-align: center;
+  background: $color-text;
+  color: $color-white;
+  width: 100%;
+  font-size: 16px;
+  padding: 30px 0;
+  border-top: 1px solid $color-white;
+}
+
+/* main */
+.body-pc main {
+  min-height: calc(100vh - 83px);
+  padding: 100px 0 0;
+}

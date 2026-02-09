@@ -1,0 +1,68 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+/*** 맛집 리뷰 공통 서식  ***/
+// 맛집 리뷰 타이틀
+.review-title-box {
+  margin-bottom: vw-mo(30);
+}
+
+.review-title {
+  font-size: vw-mo(36);
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+/*** 맛집 리뷰 목록 ***/
+// 검색 영역
+.review-list-search {
+  .review-title-box {
+    position: relative;
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+
+    svg {
+      margin-left: vw-mo(6);
+    }
+  }
+}
+
+// 카테고리 영역
+.review-list-category {
+  .categorys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: vw-mo(20) 0;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: vw-mo(10);
+      width: vw-mo(160);
+      height: vw-mo(160);
+      border-radius: vw-mo(40);
+      border: vw-mo(2) solid $color-sub-orange;
+      color: $color-sub-orange;
+    }
+
+    img {
+      width: vw-mo(60);
+    }
+  }
+}
+
+// 리뷰 영역
+.review-list-review {
+  .review-title-box {
+    margin-bottom: vw-mo(10);
+  }
+}

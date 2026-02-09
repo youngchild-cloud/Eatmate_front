@@ -1,0 +1,46 @@
+/* base.scss */
+
+@use './font' as *;
+@use './variables' as *;
+@use './function' as *;
+
+// reset
+body {
+  color: $color-text;
+  font-family: "Pretendard", Arial, sans-serif;
+  font-size: vw-mo(28);
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+button,
+input,
+textarea,
+select,
+span {
+  font: inherit;
+  color: inherit;
+  border: none;
+}
+
+button {
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+// common
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 700px;
+  width: $inner;
+  margin: auto;
+  padding: vw-mo(30) 0;
+}

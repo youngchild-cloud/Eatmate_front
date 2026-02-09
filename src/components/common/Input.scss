@@ -1,0 +1,63 @@
+@use 'assets/scss/variables' as *;
+@use 'assets/scss/function' as *;
+
+.common-input-box {
+  margin-bottom: vw-mo(20);
+
+  &:last-of-type {
+    margin-bottom: vw-mo(60);
+  }
+
+  label,
+  .label {
+    display: block;
+    margin-bottom: vw-mo(6);
+    color: $color-sub-black;
+  }
+
+  label span,
+  .label span {
+    margin-right: vw-mo(6);
+  }
+
+  label .req,
+  .label .req {
+    color: $color-sub-orange;
+  }
+
+  label .sel,
+  .label .sel {
+    color: $color-gray;
+  }
+
+  input,
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    padding: vw-mo(23) vw-mo(20);
+    border: 1px solid $color-gray-light;
+    border-radius: vw-mo(6);
+    color: $color-text;
+    font-size: vw-mo(24);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: $color-gray-light;
+  }
+
+  input:read-only {
+    background: $color-white-gray;
+  }
+
+  select {
+    appearance: none; // 기본 화살표 제거
+    background: url('../../assets/images/review/icon_filter.png') no-repeat 97% 50% / vw-mo(20);
+  }
+
+  select option {
+    color: $color-text;
+    background: $color-white-gray;
+  }
+}
