@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function InputComment({ p_board_cate, p_board_no }) {
+function InputComment({ p_board_cate, p_board_no, onAfterSubmit }) {
   const token = localStorage.getItem('token');
   const decoded = token ? jwtDecode(token) : '';
 
@@ -34,11 +34,19 @@ function InputComment({ p_board_cate, p_board_no }) {
       navigate('/login');
     }
 
-    try {
-      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/comment', form);
+    if (form.ct_desc === '') {
+      alert('댓글 내용을 입력하세요.');
+      return;
+    }
 
+    try {
+      await axios.post('http://localhost:9070/comment', form);
       alert('댓글이 등록되었습니다.');
-      window.location.reload();
+      onAfterSubmit?.();
+      setForm(prev => ({
+        ...prev,
+        ct_desc: '',
+      }))
     } catch (err) {
       console.log(err);
     }
@@ -50,9 +58,9 @@ function InputComment({ p_board_cate, p_board_no }) {
         {
           decoded.token_profile
             ?
-            <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${decoded.token_profile}`} alt={`${decoded.token_nick} 프로필`} />
+            <img src={`http://localhost:9070/uploads/user/${decoded.token_profile}`} alt={`${decoded.token_nick} 프로필`} />
             :
-            <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/default-user.png`} alt='기본 프로필' />
+            <img src={`http://localhost:9070/uploads/user/default-user.jpg`} alt='기본 프로필' />
         }
       </div>
 

@@ -26,6 +26,7 @@ import MeetupDetail from 'pages/meetup/MeetupDetail';
 import MeetupModify from 'pages/meetup/MeetupModify';
 import CommunityList from 'pages/community/CommunityList';
 import CommunityDetail from 'pages/community/CommunityDetail';
+import CommunityModify from 'pages/community/CommunityModify';
 import WriteReview from 'pages/write/WriteReview';
 import WriteMeetup from 'pages/write/WriteMeetup';
 import WriteCommunity from 'pages/write/WriteCommunity';
@@ -85,8 +86,10 @@ export default function AppRoutes() {
 
         <Route path="community" element={<CommunityList />} />
         <Route path="community/detail/:bc_no" element={<CommunityDetail />} />
+        <Route path="community/modify/:bc_no" element={<CommunityModify />} />
 
         <Route path="write/review" element={<WriteReview />} />
+        <Route path="write/review/:br_no" element={<WriteReview />} />
         <Route path="write/meetup" element={<WriteMeetup />} />
         <Route path="write/community" element={<WriteCommunity />} />
 

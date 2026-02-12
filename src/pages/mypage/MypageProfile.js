@@ -10,22 +10,38 @@ import InputTextarea from 'components/common/InputTextarea';
 import ButtonWide from 'components/common/ButtonWide';
 import InputFile from 'components/common/InputFile';
 import { useRequireLogin } from 'utils/useRequireLogin';
+import { jwtDecode } from 'jwt-decode';
 
 const MypageProfile = () => {
   useRequireLogin(); // 페이지에 진입했을 때 로그인이 안되어 있다면 로그인 페이지로 이동
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  //토큰만료 확인후 삭제
+  if (token) {
+    const { exp } = jwtDecode(token);
+    if (Date.now() >= exp * 1000) {
+      localStorage.removeItem('token');
+      navigate('/login');
+    }
+  }
 
   const [myProfileInput, setMyProfileInput] = useState({
     u_id: '',
     u_pw: '',
     u_pw2: '',
+    u_nick: '',
     u_desc: '',
   });
   const [profileFile, setProfileFile] = useState(null);
   const [errPwText, setErrPwText] = useState('');
   const [isPwMatch, setIsPwMatch] = useState(false);
   const [originPic, setOriginPic] = useState(null);
-  const navigate = useNavigate();
+  const [isNickChecked, setIsNickChecked] = useState(false);
+  const [checkedNick, setCheckedNick] = useState('');
+  const [originalNick, setOriginalNick] = useState('');
   const { user_no } = useParams()
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // 페이지에 들어왔을 때 로그인 토큰이 있다면 메인 페이지로 강제 이동
@@ -36,14 +52,18 @@ const MypageProfile = () => {
     }
 
     // 페이지에 들어왔을 때 기존 유저값이 나오게
-    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${user_no}`)
+    axios.get(`http://localhost:9070/mypage/${user_no}`)
       .then(res => {
         setMyProfileInput(prev => ({
           ...prev,
           u_id: res.data.u_id,
+          u_nick: res.data.u_nick,
           u_desc: res.data.u_desc,
         }))
 
+        setOriginalNick(res.data.u_nick);
+        setCheckedNick(res.data.u_nick);
+        setIsNickChecked(true);
         setOriginPic(res.data.u_pic);
       })
       .catch(err => console.log(err));
@@ -57,6 +77,11 @@ const MypageProfile = () => {
       ...prev,
       [name]: value
     }))
+
+    if (name === 'u_nick') {
+      setIsNickChecked(false);
+      setCheckedNick('');
+    }
   }
 
   // form 유효성검사 > 비밀번호 일치 확인
@@ -76,6 +101,25 @@ const MypageProfile = () => {
     }
   }, [myProfileInput.u_pw, myProfileInput.u_pw2]);
 
+  // 닉네임 중복 확인 버튼
+  const nickCheck = async () => {
+    try {
+      const res = await axios.post('http://localhost:9070/nickcheck', {
+        u_nick: myProfileInput.u_nick
+      });
+
+      alert(res.data.message);
+      setIsNickChecked(true);
+      setCheckedNick(myProfileInput.u_nick);
+      return true;
+    } catch (err) {
+      alert(err.response?.data?.message || '중복 확인 실패');
+      setIsNickChecked(false);
+      setCheckedNick('');
+      return false;
+    }
+  };
+
   // submit 버튼 클릭시 프로필 수정이 되도록
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,15 +129,27 @@ const MypageProfile = () => {
       return;
     }
 
+    // 닉네임이 바뀐 경우에만 중복확인 강제
+    const nickChanged = myProfileInput.u_nick !== originalNick;
+
+    if (nickChanged && (!isNickChecked || checkedNick !== myProfileInput.u_nick)) {
+      alert('닉네임 중복 확인을 먼저 해주세요.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('u_id', myProfileInput.u_id);
     formData.append('u_pw', myProfileInput.u_pw);
+    formData.append('u_nick', myProfileInput.u_nick);
     formData.append('u_desc', myProfileInput.u_desc);
 
     if (profileFile) formData.append('u_pic', profileFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.put('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/profile/modify/', formData);
+      await axios.put('http://localhost:9070/mypage/profile/modify/', formData);
+
+      // 프로필 수정 후 Header 즉시 갱신
+      window.dispatchEvent(new Event('authchange'));
 
       alert('프로필 수정이 완료되었습니다. 마이페이지로 이동합니다.');
       navigate('/mypage');
@@ -146,6 +202,22 @@ const MypageProfile = () => {
             defaultPreview={originPic}
             onFilesChange={(files) => setProfileFile(files[0] || null)}
           />
+
+          <div className="nick-box">
+            <Input
+              type='text'
+              name='u_nick'
+              title='닉네임'
+              SelectInput='(선택)'
+              value={myProfileInput.u_nick}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={nickCheck}
+            >
+              중복 확인</button>
+          </div>
 
           <InputTextarea
             name='u_desc'

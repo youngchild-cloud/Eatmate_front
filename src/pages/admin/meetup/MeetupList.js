@@ -3,14 +3,26 @@ import Aside from 'components/admin/Aside';
 import TitleBox from 'components/admin/TitleBox';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { dateFormat2, dateFormat3 } from 'utils/dateFormat2';
+import { jwtDecode } from 'jwt-decode';
+import { useAdminRequireLogin } from 'utils/useAdminRequireLogin';
 
 function MeetupList(props) {
+  useAdminRequireLogin(); // 페이지에 진입했을 때 로그인이 안되어 있다면 로그인 페이지로 이동
+  const token = localStorage.getItem('adminToken');
+  //토큰만료 확인후 삭제
+  if (token) {
+    const { exp } = jwtDecode(token);
+    if (Date.now() >= exp * 1000) {
+      localStorage.removeItem('adminToken');
+    }
+  }
 
   const [data, setData] = useState([]);
 
   const loadData = async () => {
     try {
-      const res = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/all');
+      const res = await axios.get('http://localhost:9070/meetup/all');
       setData(res.data);
     } catch (err) {
       console.log(err.respone.data.error);
@@ -24,7 +36,7 @@ function MeetupList(props) {
   const deleteData = async (bm_no, u_nick) => {
     if (window.confirm(`${u_nick}님의 게시글을 삭제하시겠습니까?`)) {
       try {
-        await axios.delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/meetup/${bm_no}`);
+        await axios.delete(`http://localhost:9070/admin/meetup/${bm_no}`);
 
         alert(`선택하신 ${u_nick}님의 게시글을 삭제했습니다.`);
         loadData();
@@ -37,12 +49,13 @@ function MeetupList(props) {
   return (
     <>
       <section className='admin-list admin-userlist'>
-        <article className="pc-inner">
+        <h2 className='hidden'>맛집 탐방 목록</h2>
+        <div className="pc-inner">
           {/* 좌측 내비 */}
           <Aside navName="board" />
 
           {/* 우측 리스트 */}
-          <div className='admin-list'>
+          <article className='admin-list'>
             <TitleBox title="맛집 탐방 목록" />
 
             <table>
@@ -82,12 +95,12 @@ function MeetupList(props) {
                     <td>{item.u_nick}</td>
                     <td>{item.bm_title}</td>
                     <td>{item.bm_desc}</td>
-                    <td className='imgtd'><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/meetup/${item.bm_img}`} alt="탐방 사진" ></img></td>
+                    <td className='imgtd'><img src={`http://localhost:9070/uploads/meetup/${item.bm_img}`} alt="탐방 사진" ></img></td>
                     <td>{item.bm_m_res}</td>
-                    <td>{item.bm_m_date}</td>
+                    <td>{dateFormat3(item.bm_m_date)}</td>
                     <td>{item.bm_heart}</td>
                     <td>{item.bm_comment}</td>
-                    <td>{item.bm_date}</td>
+                    <td>{dateFormat2(item.bm_date)}</td>
                     <td className='btn-td'>
                       <Link to={`/admin/board/meetup/modify/${item.bm_no}`} className='btn-update btn'>수정</Link>
                       <button className='btn-delete btn' onClick={() => deleteData(item.bm_no, item.u_nick)}>삭제</button>
@@ -97,8 +110,8 @@ function MeetupList(props) {
                 }
               </tbody>
             </table>
-          </div>
-        </article>
+          </article>
+        </div>
       </section>
     </>
   );

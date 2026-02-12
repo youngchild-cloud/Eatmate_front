@@ -19,17 +19,27 @@ import LogoutImg from 'assets/images/mypage/logout.png';
 const Mypage = () => {
   useRequireLogin(); // 페이지에 진입했을 때 로그인이 안되어 있다면 로그인 페이지로 이동
 
+  const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  //토큰만료 확인후 삭제
+  if (token) {
+    const { exp } = jwtDecode(token);
+    if (Date.now() >= exp * 1000) {
+      localStorage.removeItem('token');
+      navigate('/login');
+    }
+  }
+
   const decoded = token ? jwtDecode(token) : '';
 
   const [mypageData, setMyPageDate] = useState('');
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const user_no = decoded.token_no;
 
-    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${user_no}`)
+    axios.get(`http://localhost:9070/mypage/${user_no}`)
       .then(res => setMyPageDate(res.data))
       .catch(err => console.log(err))
   }, [])
@@ -37,6 +47,8 @@ const Mypage = () => {
   const handleLogout = () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
       localStorage.removeItem('token');
+      window.dispatchEvent(new Event('authchange')); // Header 즉시 갱신
+
       alert('로그아웃 되었습니다. 메인 페이지로 이동합니다.');
       navigate('/');
     } else {
@@ -50,7 +62,9 @@ const Mypage = () => {
         <TitleCenter title={'마이페이지'} />
 
         <div className="profile">
-          <div><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${mypageData.u_pic}`} alt="" /></div>
+          <div className='profile-img'>
+            <img src={`http://localhost:9070/uploads/user/${mypageData.u_pic}`} alt="" />
+          </div>
 
           <p className="profile-txt">
             {mypageData.u_nick}

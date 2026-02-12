@@ -49,7 +49,7 @@ function AdminHeader() {
       <div className='admin-header-inner'>
         <h1>
           <Link to='/admin' title='관리자 메인 페이지로 이동'>
-            <img src={Logo} alt='' />
+            <img src={Logo} alt='메인로고' />
           </Link>
         </h1>
 
@@ -63,7 +63,7 @@ function AdminHeader() {
 
         {adminToken && adminInfo && (
           <div className='admin-info'>
-            <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/admin-user/${adminInfo.token_profile}`} alt='' />
+            <img src={`http://localhost:9070/uploads/admin-user/${adminInfo.token_profile}`} alt='' />
             <p
               onClick={() => setHandleLogout(prev => !prev)}
               className={handleLogout ? 'up' : 'down'}

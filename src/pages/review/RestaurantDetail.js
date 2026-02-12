@@ -68,7 +68,7 @@ const RestaurantDetail = () => {
     };
 
     try {
-      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/bookmark', info);
+      await axios.post('http://localhost:9070/bookmark', info);
       setIsBookmarked(nextToggle);
 
       alert(nextToggle ? '저장되었습니다.' : '저장이 해제되었습니다.');
@@ -80,7 +80,7 @@ const RestaurantDetail = () => {
   // 맛집 데이터 연결
   const rtLoadData = async () => {
     try {
-      const res = await axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/restaurant/detail/${rt_no}`);
+      const res = await axios.get(`http://localhost:9070/restaurant/detail/${rt_no}`);
 
       setRestaurantData(res.data);
     } catch (err) {
@@ -91,7 +91,7 @@ const RestaurantDetail = () => {
   // 리뷰 데이터 연결
   const rvLoadData = async () => {
     try {
-      const res = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/review', {
+      const res = await axios.get('http://localhost:9070/review', {
         params: { rt_no },
       });
 
@@ -104,143 +104,161 @@ const RestaurantDetail = () => {
   useEffect(() => {
     rtLoadData();
     rvLoadData();
-  }, [rt_no])
+
+    // 북마크 상태 로드
+    const loadBookmark = async () => {
+      if (!token) {
+        setIsBookmarked(false);
+        return;
+      }
+      try {
+        const res = await axios.get('http://localhost:9070/bookmark/check', {
+          params: { user_no: decoded.token_no, rt_no },
+        });
+        setIsBookmarked(res.data.isBookmarked);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadBookmark();
+  }, [rt_no, token]);
 
   return (
     <>
-      {
-        <>
-          <section className='restaurant-detail-infomation'>
-            <article className='restaurant-detail-slide'>
-              <button className='common-back' onClick={() => navigate(-1)}>
-                <img src={iconBack} alt="뒤로 가기" />
-                <span className="blind">뒤로 가기</span>
-              </button>
-              <Swiper
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                loop={true}
-                pagination={{
-                  type: 'fraction',
-                }}
-                modules={[Autoplay, Pagination]}
-                className="restaurant-detail-swiper"
-              >
-                {
-                  restaurantData.rt_img &&
-                  <SwiperSlide>
-                    <div className="img-box">
-                      <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${restaurantData.rt_img}`} alt={`${restaurantData.rt_name} 메인`} />
-                    </div>
-                  </SwiperSlide>
-                }
-                {
-                  restaurantData.rt_img2 &&
-                  <SwiperSlide>
-                    <div className="img-box">
-                      <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${restaurantData.rt_img2}`} alt={`${restaurantData.rt_name} 메인`} />
-                    </div>
-                  </SwiperSlide>
-                }
-                {
-                  restaurantData.rt_img3 &&
-                  <SwiperSlide>
-                    <div className="img-box">
-                      <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${restaurantData.rt_img3}`} alt={`${restaurantData.rt_name} 메인`} />
-                    </div>
-                  </SwiperSlide>
-                }
-                {
-                  restaurantData.rt_img4 &&
-                  <SwiperSlide>
-                    <div className="img-box">
-                      <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${restaurantData.rt_img4}`} alt={`${restaurantData.rt_name} 메인`} />
-                    </div>
-                  </SwiperSlide>
-                }
-                {
-                  restaurantData.rt_img5 &&
-                  <SwiperSlide>
-                    <div className="img-box">
-                      <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${restaurantData.rt_img5}`} alt={`${restaurantData.rt_name} 메인`} />
-                    </div>
-                  </SwiperSlide>
-                }
-              </Swiper>
-            </article>
+      <>
+        <section className='restaurant-detail-infomation'>
+          <h2 className="blind">{restaurantData.rt_name} 정보</h2>
 
-            <article className='restaurant-detail-info'>
-              <div className="inner">
-                <div className="info-text">
-                  <h2 className="title">{restaurantData.rt_name}</h2>
-                  <p className='desc'>{restaurantData.rt_desc}</p>
-                  <p className='disc'>
-                    <span className='rank'>{restaurantData.rt_rank} ({restaurantData.rt_review})</span> · <span className='category'>{restaurantData.rt_cate}</span> · <span className='location'>{restaurantData.rt_location}</span>
-                  </p>
-                </div>
-                <ul className='info-list'>
-                  <li>
-                    <a href={`tel:${restaurantData.rt_tel}`} title={`${restaurantData.rt_name} 전화하기`}>
-                      <img src={icon01} alt="전화" />
-                      <span>전화</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={`https://map.kakao.com/?q=${restaurantData.rt_name}`} title={`${restaurantData.rt_name} 카카오맵으로 이동(새창)`} target='_blank' rel='noopener noreferrer'>
-                      <img src={icon02} alt="길찾기" />
-                      <span>길찾기</span>
-                    </a>
-                  </li>
-                  <li>
-                    <button
-                      onClick={bookmarkClick}
-                      className={isBookmarked ? 'act' : ''}
-                    >
-                      <img src={icon03} alt="저장" />
-                      <span>저장</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={clip}>
-                      <img src={icon04} alt="공유" />
-                      <span>공유</span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </article>
-          </section>
+          <div className='restaurant-detail-slide'>
+            <button className='common-back' onClick={() => navigate(-1)}>
+              <img src={iconBack} alt="뒤로 가기" />
+              <span className="blind">뒤로 가기</span>
+            </button>
+            <Swiper
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              pagination={{
+                type: 'fraction',
+              }}
+              modules={[Autoplay, Pagination]}
+              className="restaurant-detail-swiper"
+            >
+              {
+                restaurantData.rt_img &&
+                <SwiperSlide>
+                  <div className="img-box">
+                    <img src={`http://localhost:9070/uploads/restaurant/${restaurantData.rt_img}`} alt={`${restaurantData.rt_name} 메인`} />
+                  </div>
+                </SwiperSlide>
+              }
+              {
+                restaurantData.rt_img2 &&
+                <SwiperSlide>
+                  <div className="img-box">
+                    <img src={`http://localhost:9070/uploads/restaurant/${restaurantData.rt_img2}`} alt={`${restaurantData.rt_name} 메인`} />
+                  </div>
+                </SwiperSlide>
+              }
+              {
+                restaurantData.rt_img3 &&
+                <SwiperSlide>
+                  <div className="img-box">
+                    <img src={`http://localhost:9070/uploads/restaurant/${restaurantData.rt_img3}`} alt={`${restaurantData.rt_name} 메인`} />
+                  </div>
+                </SwiperSlide>
+              }
+              {
+                restaurantData.rt_img4 &&
+                <SwiperSlide>
+                  <div className="img-box">
+                    <img src={`http://localhost:9070/uploads/restaurant/${restaurantData.rt_img4}`} alt={`${restaurantData.rt_name} 메인`} />
+                  </div>
+                </SwiperSlide>
+              }
+              {
+                restaurantData.rt_img5 &&
+                <SwiperSlide>
+                  <div className="img-box">
+                    <img src={`http://localhost:9070/uploads/restaurant/${restaurantData.rt_img5}`} alt={`${restaurantData.rt_name} 메인`} />
+                  </div>
+                </SwiperSlide>
+              }
+            </Swiper>
+          </div>
 
-          <section className='restaurant-detail-review'>
+          <article className='restaurant-detail-info'>
             <div className="inner">
-              <div className="restaurant-title-box">
-                <h2 className="restaurant-title">리뷰 보기</h2>
-                <Link to={'/write/review'} title='맛집 리뷰 글쓰기 페이지로 이동'>리뷰 쓰기 &gt;</Link>
+              <div className="info-text">
+                <h2 className="title">{restaurantData.rt_name}</h2>
+                <p className='desc'>{restaurantData.rt_desc}</p>
+                <p className='disc'>
+                  <span className='rank'>{restaurantData.rt_rank} ({restaurantData.rt_review})</span> · <span className='category'>{restaurantData.rt_cate}</span> · <span className='location'>{restaurantData.rt_location}</span>
+                </p>
               </div>
-              <ul className='list'>
-                {
-                  reviewData.map(item => (
-                    <li key={item.br_no}>
-                      <Link to={`/review/detail/${item.br_no}`} title={`${item.rt_name} 리뷰 상세 페이지로 이동`}>
-                        <div className="img-box">
-                          <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${item.br_img}`} alt={`${item.rt_name} 리뷰`} />
-                        </div>
-                        <div className="txt-box">
-                          <p className='text'>{item.br_desc}</p>
-                          <Rank5 num={item.br_rank} />
-                          <span className='date'>{dateFormat(item.br_date)}</span>
-                        </div>
-                      </Link>
-                    </li>
-                  ))
-                }
+              <ul className='info-list'>
+                <li>
+                  <a href={`tel:${restaurantData.rt_tel}`} title={`${restaurantData.rt_name} 전화하기`}>
+                    <img src={icon01} alt="전화" />
+                    <span>전화</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`https://map.kakao.com/?q=${restaurantData.rt_name}`} title={`${restaurantData.rt_name} 카카오맵으로 이동(새창)`} target='_blank' rel='noopener noreferrer'>
+                    <img src={icon02} alt="길찾기" />
+                    <span>길찾기</span>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={bookmarkClick}
+                    className={isBookmarked ? 'act' : ''}
+                  >
+                    <img src={icon03} alt="저장" />
+                    <span>저장</span>
+                  </button>
+                </li>
+                <li>
+                  <button onClick={clip}>
+                    <img src={icon04} alt="공유" />
+                    <span>공유</span>
+                  </button>
+                </li>
               </ul>
             </div>
-          </section>
-        </>
-      }
+          </article>
+        </section>
+
+        <section className='restaurant-detail-review'>
+          <div className="inner">
+            <div className="restaurant-title-box">
+              <h2 className="restaurant-title">리뷰 보기</h2>
+              <Link to={'/write/review'} title='맛집 리뷰 글쓰기 페이지로 이동'>리뷰 쓰기 &gt;</Link>
+            </div>
+            <ul className='list'>
+              {
+                reviewData.map(item => (
+                  <li key={item.br_no}>
+                    <Link to={`/review/detail/${item.br_no}`} title={`${item.rt_name} 리뷰 상세 페이지로 이동`}>
+                      <div className="img-box">
+                        <img src={`http://localhost:9070/uploads/review/${item.br_img}`} alt={`${item.rt_name} 리뷰`} />
+                      </div>
+                      <div className="txt-box">
+                        <p className='text'>{item.br_desc}</p>
+                        <Rank5 num={item.br_rank} />
+                        <span className='date'>{dateFormat(item.br_date)}</span>
+                      </div>
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </section>
+      </>
     </>
   );
 };

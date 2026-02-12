@@ -34,7 +34,7 @@ const MeetupModify = () => {
   });
 
   useEffect(() => {
-    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/modify/${bm_no}`)
+    axios.get(`http://localhost:9070/meetup/modify/${bm_no}`)
       .then(res => {
         console.log('서버응답값:', res.data);
         const data = res.data;
@@ -84,7 +84,7 @@ const MeetupModify = () => {
 
     if (imgFile) formData.append('bm_img', imgFile); // key 이름 중요(백엔드와 동일)
 
-    axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/update/${bm_no}`, formData, {
+    axios.put(`http://localhost:9070/meetup/update/${bm_no}`, formData, {
       headers: { 'Conernt-Type': 'multipart/form-data' }
       // bm_title: form.bm_title,
       // bm_desc: form.bm_desc,

@@ -1,10 +1,11 @@
-import './CpCommunity.scss';
-import HeartComment from 'components/common/HeartComment';
-import { dateFormat } from 'utils/dateFormat'
-
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+import './CpCommunity.scss';
+
+import HeartCommentList from 'components/common/HeartCommentList';
+import { dateFormat } from 'utils/dateFormat'
 
 const CpCommunity = ({ mypageUser, mypageCategory }) => {
   const [data, setData] = useState([]);
@@ -13,12 +14,12 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
   const loadData = () => {
     if (!mypageUser) {
       // 커뮤니티
-      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/communitylist')
+      axios.get('http://localhost:9070/communitylist')
         .then(res => setData(res.data))
         .catch(err => console.log(err))
     } else {
       // 마이페이지 - 작성한 게시글
-      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community', {
+      axios.get('http://localhost:9070/community', {
         params: { user_no: mypageUser, board_cate: mypageCategory }
       })
         .then(res => setData(res.data))
@@ -33,6 +34,11 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
   return (
     <>
       <div id="cp-community">
+        {/* 결과 없을 때 */}
+        {data.length === 0 && (
+          <p className="empty">해당 내용이 없습니다.</p>
+        )}
+
         {/* 자유게시판 글 목록  */}
         {data.map(item => (
           <div key={item.bc_no}>
@@ -41,7 +47,7 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
               <div className="comm-top">
                 {/* 프로필 사진 public */}
                 <div className="img-box">
-                  <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
+                  <img src={`http://localhost:9070/uploads/user/${item.u_pic}`} alt={`${item.u_nick} 프로필`} />
                 </div>
                 {/* 닉네임 + 등록시간 */}
                 <p className='txt-box'>
@@ -58,7 +64,7 @@ const CpCommunity = ({ mypageUser, mypageCategory }) => {
               </div>
 
               {/* 하트 수 + 채팅 수 */}
-              <HeartComment heart={`${item.bc_heart}`} comment={`${item.bc_comment}`} />
+              <HeartCommentList heart={`${item.bc_heart}`} comment={`${item.bc_comment}`} />
             </Link>
           </div>
         ))}

@@ -8,8 +8,20 @@ import Aside from 'components/admin/Aside';
 import TitleBox from 'components/admin/TitleBox';
 import PcInput from 'components/admin/PcInput';
 import PcInputFile from 'components/admin/PcInputFile';
+import { jwtDecode } from 'jwt-decode';
+import { useAdminRequireLogin } from 'utils/useAdminRequireLogin';
 
 function RestaurantCreate(props) {
+  useAdminRequireLogin(); // 페이지에 진입했을 때 로그인이 안되어 있다면 로그인 페이지로 이동
+  const token = localStorage.getItem('adminToken');
+  //토큰만료 확인후 삭제
+  if (token) {
+    const { exp } = jwtDecode(token);
+    if (Date.now() >= exp * 1000) {
+      localStorage.removeItem('adminToken');
+    }
+  }
+
   const [rtInput, setRtInput] = useState({
     rt_name: '',
     rt_desc: '',
@@ -46,7 +58,7 @@ function RestaurantCreate(props) {
     if (picFile) formData.append('rt_img', picFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/restaurant', formData);
+      await axios.post('http://localhost:9070/admin/restaurant', formData);
 
       alert('맛집 등록이 완료되었습니다. 맛집 목록 페이지로 이동합니다.');
       navigate('/admin/restaurant');
@@ -58,16 +70,17 @@ function RestaurantCreate(props) {
   return (
     <>
       <section className='admin-create admin-restaurant-create'>
-        <article className="pc-inner">
+        <h2 className='hidden'>맛집 등록</h2>
+        <div className="pc-inner">
           {/* 좌측 내비 */}
           <Aside navName="restaurant" />
 
           {/* 우측 리스트 */}
-          <div className='right-content'>
+          <article className='right-content'>
             <TitleBox title="맛집 등록" />
 
             <form onSubmit={handleSubmit}>
-              <legend>맛집 등록하기</legend>
+
 
               <div className="pc-input-box">
                 <label htmlFor="rt_cate">맛집 카테고리</label>
@@ -84,9 +97,9 @@ function RestaurantCreate(props) {
                 </select>
               </div>
 
-              <PcInput type="input" name="rt_name" title="맛집명" value={rtInput.rt_name} onChange={handleChange} />
+              <PcInput type="text" name="rt_name" title="맛집명" value={rtInput.rt_name} onChange={handleChange} />
 
-              <PcInput type="input" name="rt_desc" title="맛집 설명" value={rtInput.rt_desc} onChange={handleChange} />
+              <PcInput type="text" name="rt_desc" title="맛집 설명" value={rtInput.rt_desc} onChange={handleChange} />
 
               <PcInputFile
                 name="rt_img"
@@ -101,8 +114,8 @@ function RestaurantCreate(props) {
 
               <button type="submit">등록 완료</button>
             </form>
-          </div>
-        </article>
+          </article>
+        </div>
       </section>
     </>
   );

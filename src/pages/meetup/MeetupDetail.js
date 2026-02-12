@@ -29,7 +29,7 @@ const MeetupDetail = () => {
       navigate('/login');
       return;
     }
-    axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup_join', {
+    axios.post('http://localhost:9070/meetup_join', {
       bm_no, user_no: decoded.token_no
     }).then(() => {
       setJoined(true);
@@ -41,7 +41,7 @@ const MeetupDetail = () => {
   }
 
   const handleCancel = () => {
-    axios.delete('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup_join', {
+    axios.delete('http://localhost:9070/meetup_join', {
       data: { bm_no, user_no: decoded.token_no }
     }).then(() => {
       setJoined(false);
@@ -96,7 +96,7 @@ const MeetupDetail = () => {
   const deleteData = (bm_no) => {
     if (window.confirm('삭제하시겠습니까?')) {
       axios
-        .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/delmeetup/${bm_no}`)
+        .delete(`http://localhost:9070/delmeetup/${bm_no}`)
         .then(() => {
           alert('삭제되었습니다.');
           navigate('/meetup');
@@ -109,13 +109,13 @@ const MeetupDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const meetupRes = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/', {
+        const meetupRes = await axios.get('http://localhost:9070/meetup/', {
           params: { bm_no }
         });
         setMeetUp(meetupRes.data);
 
         if (token) {
-          const joinRes = await axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup_join', {
+          const joinRes = await axios.get('http://localhost:9070/meetup_join', {
             params: { bm_no, user_no: decoded.token_no }
           });
           setJoined(joinRes.data.joined);
@@ -132,7 +132,7 @@ const MeetupDetail = () => {
   }, [bm_no, token]);
 
   // useEffect(() => {
-  //   axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/`, {
+  //   axios.get(`http://localhost:9070/meetup/`, {
   //     params: { bm_no }
   //   })
   //     .then(res => {
@@ -145,13 +145,16 @@ const MeetupDetail = () => {
 
   // useEffect(() => {
   //   if (!token) return;
-  //   axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup_join', {
+  //   axios.get('http://localhost:9070/meetup_join', {
   //     params: { bm_no, user_no: decoded.token_no }
   //   })
   //     .then(res => {
   //       setJoined(res.data.joined);
   //     });
   // }, [bm_no, token]);
+  const closeAlert = (e) => {
+    alert('마감된 탐방입니다.')
+  }
 
 
   return (
@@ -161,7 +164,7 @@ const MeetupDetail = () => {
 
         <div className='user-writer'>
           <div className='user'>
-            <div className='user-img'><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${meetUp.u_pic}`} alt="" /></div>
+            <div className='user-img'><img src={`http://localhost:9070/uploads/user/${meetUp.u_pic}`} alt="" /></div>
             <p className='user-info'>{meetUp.u_nick}<span className='user-info-gap'>&middot;</span>{dateFormat(meetUp.bm_date)}</p>
           </div>
 
@@ -190,7 +193,7 @@ const MeetupDetail = () => {
 
 
         <div className='content-box'>
-          <img className="content-img" src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/meetup/${meetUp.bm_img}`} alt="" />
+          <img className="content-img" src={`http://localhost:9070/uploads/meetup/${meetUp.bm_img}`} alt="" />
           <p className='content-txt'>{meetUp.bm_title}
             <span className='content-txt-detail'>
               {meetUp.bm_desc}
@@ -202,18 +205,25 @@ const MeetupDetail = () => {
             <span className='content-info-txt'><img src={tabTxtImg3} alt="인원아이콘" /> {meetUp.bm_m_people}/ {meetUp.bm_m_people_all}</span>
           </p>
 
-          {joined &&
+          {joined && !myPage &&
             (<p onClick={handleCancel} className='meetup-toggle-btn'>
               <ButtonWide text={'참석취소'} />
             </p>)}
-          {!joined && meetupMax && (
-            <p className='meetup-toggle-btn-close'>
-              <ButtonWide text={'참석마감'} disabled />
+
+          {myPage && (<p className='mymeetup-btn'>
+            <ButtonWide text={'내가 만든 탐방입니다'} />
+          </p>)}
+
+
+          {!joined && meetupMax && !myPage && (
+            <p className='meetup-toggle-btn-close' onClick={closeAlert}>
+              <ButtonWide text={'참석마감'} />
             </p>)}
-          {!meetupMax && !joined && (
+          {!meetupMax && !joined && !myPage && (
             <p onClick={handleJoin}>
               <ButtonWide text={'참석하기'} />
             </p>)}
+
 
           {/* p_board_cate는 게시판 카테고리(review, meetup, community) / p_board_no는 게시글 번호 / p_user_token는 토큰값을 decoded해서 넘겨주시면 됩니다. */}
           <HeartComment heart={meetUp.bm_heart} comment={meetUp.bm_comment} p_board_cate={'meetup'} p_board_no={bm_no} p_user_token={decoded} />
