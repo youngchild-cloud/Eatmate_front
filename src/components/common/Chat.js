@@ -21,7 +21,7 @@ function Chat({ p_board_cate, p_board_no, onRefreshBoard }) {
 
   const loadData = async () => {
     try {
-      const res = await axios.post('http://localhost:9070/common/chat', boardInfo);
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/common/chat', boardInfo);
 
       setChatDate(res.data);
     } catch (err) {
@@ -36,7 +36,7 @@ function Chat({ p_board_cate, p_board_no, onRefreshBoard }) {
   const handleDelete = async (ct_no) => {
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
       try {
-        await axios.delete(`http://localhost:9070/chat/comment/${ct_no}`, {
+        await axios.delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/chat/comment/${ct_no}`, {
           data: boardInfo,
         });
 

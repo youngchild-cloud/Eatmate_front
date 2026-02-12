@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:9070',
+  baseURL: 'https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app',
 });
 
 api.interceptors.request.use(config => {

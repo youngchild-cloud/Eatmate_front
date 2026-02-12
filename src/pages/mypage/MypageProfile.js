@@ -52,7 +52,7 @@ const MypageProfile = () => {
     }
 
     // 페이지에 들어왔을 때 기존 유저값이 나오게
-    axios.get(`http://localhost:9070/mypage/${user_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${user_no}`)
       .then(res => {
         setMyProfileInput(prev => ({
           ...prev,
@@ -104,7 +104,7 @@ const MypageProfile = () => {
   // 닉네임 중복 확인 버튼
   const nickCheck = async () => {
     try {
-      const res = await axios.post('http://localhost:9070/nickcheck', {
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/nickcheck', {
         u_nick: myProfileInput.u_nick
       });
 
@@ -146,7 +146,7 @@ const MypageProfile = () => {
     if (profileFile) formData.append('u_pic', profileFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.put('http://localhost:9070/mypage/profile/modify/', formData);
+      await axios.put('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/profile/modify/', formData);
 
       // 프로필 수정 후 Header 즉시 갱신
       window.dispatchEvent(new Event('authchange'));

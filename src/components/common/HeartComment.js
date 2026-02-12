@@ -41,7 +41,7 @@ const HeartComment = ({ heart, comment, p_board_cate, p_board_no, p_user_token }
         user_no: p_user_token?.token_no,
       };
 
-      const res = await axios.post(`http://localhost:9070/heart/user`, payload);
+      const res = await axios.post(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/heart/user`, payload);
 
       // 눌렀으면 객체, 아니면 undefined/null
       setHeartToggle(!!res.data);
@@ -79,10 +79,10 @@ const HeartComment = ({ heart, comment, p_board_cate, p_board_no, p_user_token }
     // db 데이터 업데이트/입력
     try {
       // board_review/board_meetup/board_community 테이블의 하트 수 업데이트
-      await axios.put(`http://localhost:9070/board/heart`, payload);
+      await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/board/heart`, payload);
 
       // heard 테이블의 데이터 입력(생성)
-      await axios.post(`http://localhost:9070/heart`, payload);
+      await axios.post(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/heart`, payload);
     } catch (err) {
       console.log(err);
 

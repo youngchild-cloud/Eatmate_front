@@ -64,7 +64,7 @@ const Header = () => {
 
     const token_no = decoded.token_no;
 
-    axios.get(`http://localhost:9070/user/${token_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/user/${token_no}`)
       .then(res => setUser(res.data))
       .catch(err => console.log(err));
   }, [token, refreshUser]);
@@ -83,7 +83,7 @@ const Header = () => {
             token && user.u_pic &&
             <div className="img-box">
               <img
-                src={`http://localhost:9070/uploads/user/${user.u_pic}?t=${Date.now()}`}
+                src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${user.u_pic}?t=${Date.now()}`}
                 alt="프로필"
               />
             </div>

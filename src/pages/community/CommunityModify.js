@@ -25,11 +25,11 @@ const CommunityModify = () => {
 
   // 글 정보 불러오기
   useEffect(() => {
-    axios.get(`http://localhost:9070/community/detail/${bc_no}`)
-    .then(res =>{
-      setBcModify(res.data);
-    })
-    .catch(err => console.log('조회 오류 : ', err));
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/detail/${bc_no}`)
+      .then(res => {
+        setBcModify(res.data);
+      })
+      .catch(err => console.log('조회 오류 : ', err));
   }, [bc_no]);
 
   // const [form, setForm] = useState({
@@ -46,11 +46,11 @@ const CommunityModify = () => {
     });
   }
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      await axios.put(`http://localhost:9070/community/update/${bc_no}`, {
+    try {
+      await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/update/${bc_no}`, {
         bc_title: bcModify.bc_title,
         bc_desc: bcModify.bc_desc,
       })
@@ -58,7 +58,7 @@ const CommunityModify = () => {
       alert('게시글이 수정되었습니다.');
 
       navigate('/community')
-    }catch (err) {
+    } catch (err) {
       console.log(err)
     }
   }

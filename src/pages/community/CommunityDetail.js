@@ -20,7 +20,7 @@ function CommunityDetail(props) {
   const decoded = token ? jwtDecode(token) : '';
 
   const loadData = () => {
-    axios.get(`http://localhost:9070/community/detail/${bc_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/community/detail/${bc_no}`)
       .then(res => {
         setData(res.data);
       })
@@ -37,7 +37,7 @@ function CommunityDetail(props) {
     if (window.confirm('게시물을 삭제하시겠습니까?')) {
       try {
         await axios
-          .delete(`http://localhost:9070/admin/community/${bc_no}`);
+          .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/community/${bc_no}`);
 
         alert('게시글을 삭제했습니다.');
         navigate('/community');
@@ -61,7 +61,7 @@ function CommunityDetail(props) {
             <div className="comm-top">
               {/* 프로필 사진 public */}
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/user/${data.u_pic}`} alt={`${data.u_nick} 프로필`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${data.u_pic}`} alt={`${data.u_nick} 프로필`} />
               </div>
               {/* 닉네임 + 등록시간 */}
               <p className='txt-box'>

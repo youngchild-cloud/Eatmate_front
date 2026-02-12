@@ -18,12 +18,12 @@ const CpMeetup = ({ mypageUser, mypageCategory }) => {
   const loadData = () => {
     if (!mypageUser) {
       // 맛집 탐방
-      axios.get('http://localhost:9070/meetup/all')
+      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/all')
         .then(res => setData(res.data))
         .catch(err => console.log(err))
     } else {
       // 마이페이지 - 작성한 게시글
-      axios.get('http://localhost:9070/meetup', {
+      axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup', {
         params: { user_no: mypageUser, board_cate: mypageCategory }
       })
         .then(res => setData(res.data))
@@ -32,7 +32,7 @@ const CpMeetup = ({ mypageUser, mypageCategory }) => {
   }
 
   const loadMeetupData = () => {
-    axios.get('http://localhost:9070/mymeetup', {
+    axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mymeetup', {
       params: { user_no }
     })
       .then(res => {
@@ -71,7 +71,7 @@ const CpMeetup = ({ mypageUser, mypageCategory }) => {
                 <HeartCommentList heart={item.bm_heart} comment={item.bm_comment} />
               </div>
               <div className='item-img'>
-                <img src={`http://localhost:9070/uploads/meetup/${item.bm_img}`} alt="" />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/meetup/${item.bm_img}`} alt="" />
               </div>
             </div>
           </Link>

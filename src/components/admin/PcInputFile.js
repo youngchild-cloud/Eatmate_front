@@ -17,7 +17,7 @@ const InputFile = ({
     if (!src) return '';
     if (src.startsWith('blob:')) return src;
     if (src.startsWith('http')) return src;
-    return `http://localhost:9070${previewBasePath}/${src}`;
+    return `https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app${previewBasePath}/${src}`;
   };
 
   // 기존 이미지 미리보기 세팅

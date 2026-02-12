@@ -44,7 +44,7 @@ const WriteReview = () => {
   useEffect(() => {
     if (!br_no) return;
 
-    axios.get(`http://localhost:9070/write/review/modify/${br_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/write/review/modify/${br_no}`)
       .then(res => {
         setReviewInput(prev => ({
           ...prev,
@@ -64,7 +64,7 @@ const WriteReview = () => {
     if (!word) return;
 
     try {
-      const res = await axios.post('http://localhost:9070/restaurant/search', { word });
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/restaurant/search', { word });
 
       setRtData(res.data);
     } catch (err) {
@@ -123,12 +123,12 @@ const WriteReview = () => {
     try {
       if (!br_no) {
         // 등록하기
-        const res = await axios.post('http://localhost:9070/write/review', formData);
+        const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/write/review', formData);
         alert('맛집 리뷰 글쓰기가 완료되었습니다. 작성한 게시글로 이동합니다.');
         navigate(`/review/detail/${res.data.br_no}`);
       } else {
         // 수정하기
-        await axios.put(`http://localhost:9070/write/review/modify/${br_no}`, formData);
+        await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/write/review/modify/${br_no}`, formData);
         alert('맛집 리뷰 글쓰기 수정이 완료되었습니다. 수정한 게시글로 이동합니다.');
         navigate(`/review/detail/${br_no}`);
       }

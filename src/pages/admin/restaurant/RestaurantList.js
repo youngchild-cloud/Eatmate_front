@@ -20,7 +20,7 @@ function RestaurantList(props) {
   const [data, setData] = useState([]);
   const loadData = async () => {
     try {
-      const res = await axios.post('http://localhost:9070/restaurant');
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/restaurant');
 
       setData(res.data);
     } catch (err) {
@@ -37,7 +37,7 @@ function RestaurantList(props) {
     if (window.confirm(`${rt_name}을(를) 삭제하시겠습니까?`)) {
       try {
         await axios
-          .delete(`http://localhost:9070/admin/restaurant/${rt_no}`);
+          .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/restaurant/${rt_no}`);
 
         alert(`선택하신 ${rt_name}을(를) 삭제했습니다.`);
         loadData();
@@ -94,7 +94,7 @@ function RestaurantList(props) {
                     <td>{item.rt_cate}</td>
                     <td>{item.rt_name}</td>
                     <td>{item.rt_desc}</td>
-                    <td className='imgtd'><img src={`http://localhost:9070/uploads/restaurant/${item.rt_img}`} alt="식당 사진" /></td>
+                    <td className='imgtd'><img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${item.rt_img}`} alt="식당 사진" /></td>
                     <td>{item.rt_tel}</td>
                     <td>{item.rt_location}</td>
                     <td>{item.rt_rank} / ({item.rt_review})</td>

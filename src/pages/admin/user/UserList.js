@@ -24,7 +24,7 @@ function UserList(props) {
   const [data, setData] = useState([]);
 
   const loadData = () => {
-    axios.get('http://localhost:9070/admin/user')
+    axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/user')
       .then(res => {
         setData(res.data);
       })
@@ -38,7 +38,7 @@ function UserList(props) {
   const delData = (u_no) => {
     if (window.confirm('삭제하시겠습니까?')) {
       axios
-        .delete(`http://localhost:9070/admin/user/${u_no}`)
+        .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/user/${u_no}`)
         .then(() => {
           alert('삭제되었습니다.')
           loadData();

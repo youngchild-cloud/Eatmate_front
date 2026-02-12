@@ -33,7 +33,7 @@ function ReviewCreate(props) {
 
   // 페이지에 들어왔을 때 기존값이 나오게
   useEffect(() => {
-    axios.get(`http://localhost:9070/admin/review/${br_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/review/${br_no}`)
       .then(res => {
         setReviewData(prev => ({
           ...prev,
@@ -52,7 +52,7 @@ function ReviewCreate(props) {
 
     if (name === 'rt_no') {
       const rt_no = value;
-      axios.get(`http://localhost:9070/admin/restaurant/${rt_no}`)
+      axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/restaurant/${rt_no}`)
         .then(res => {
           setReviewData(prev => ({
             ...prev,
@@ -85,7 +85,7 @@ function ReviewCreate(props) {
     if (picFile) formData.append('br_img', picFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.put('http://localhost:9070/admin/review', formData);
+      await axios.put('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/review', formData);
 
       alert('맛집 리뷰 정보가 수정되었습니다. 맛집 리뷰 목록 페이지로 이동합니다.');
       navigate('/admin/board/review');

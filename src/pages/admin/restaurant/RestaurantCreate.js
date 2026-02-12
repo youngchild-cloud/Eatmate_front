@@ -58,7 +58,7 @@ function RestaurantCreate(props) {
     if (picFile) formData.append('rt_img', picFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.post('http://localhost:9070/admin/restaurant', formData);
+      await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/restaurant', formData);
 
       alert('맛집 등록이 완료되었습니다. 맛집 목록 페이지로 이동합니다.');
       navigate('/admin/restaurant');

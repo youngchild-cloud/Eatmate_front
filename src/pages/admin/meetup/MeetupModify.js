@@ -34,7 +34,7 @@ function MeetupCreate(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:9070/admin/meetup/modify/${bm_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/meetup/modify/${bm_no}`)
       .then(res => {
         setMeetupData(res.data)
         setOriginPic(res.data.bm_img);
@@ -67,7 +67,7 @@ function MeetupCreate(props) {
     if (picFile) formData.append('bm_img', picFile); // key 이름 중요(백엔드와 동일)
 
     try {
-      await axios.put(`http://localhost:9070/meetup/update/${bm_no}`, formData);
+      await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/meetup/update/${bm_no}`, formData);
 
       alert('맛집 탐방 정보가 수정되었습니다. 맛집 탐방 목록 페이지로 이동합니다.');
       navigate('/admin/board/meetup');

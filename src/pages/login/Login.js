@@ -47,7 +47,7 @@ const Login = () => {
 
     try {
       // 비동기 통신으로 값을 전달하고, 토큰을 생성
-      const res = await axios.post('http://localhost:9070/login', loginInput);
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/login', loginInput);
       localStorage.setItem('token', res.data.token);
       window.dispatchEvent(new Event('authchange'));
 

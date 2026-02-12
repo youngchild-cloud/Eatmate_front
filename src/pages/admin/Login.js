@@ -56,7 +56,7 @@ function Login(props) {
 
     try {
       // 비동기 통신으로 값을 전달하고, 토큰을 생성
-      const res = await axios.post('http://localhost:9070/admin/login', loginInput);
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/login', loginInput);
       localStorage.setItem('adminToken', res.data.adminToken);
 
       // 아이디 저장 체크박스 선택시 save_id값 생성/체크박스 해지시 save_id값 삭제

@@ -35,7 +35,7 @@ function UserCreate(props) {
 
   // 기본 유저기본값 나오게
   useEffect(() => {
-    axios.get(`http://localhost:9070/mypage/${u_no}`)
+    axios.get(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/${u_no}`)
       .then(res => {
         setUserModify(prev => ({
           ...prev,
@@ -71,7 +71,7 @@ function UserCreate(props) {
     }
 
     try {
-      await axios.put(`http://localhost:9070/mypage/profile/modify/${u_no}`, formData);
+      await axios.put(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/mypage/profile/modify/${u_no}`, formData);
 
       alert('수정 완료');
       navigate('/admin/user')
@@ -82,7 +82,7 @@ function UserCreate(props) {
 
 
 
-return (
+  return (
     <>
       <section className='admin-create admin-usercreate'>
         <div className="pc-inner">

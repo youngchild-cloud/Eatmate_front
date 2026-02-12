@@ -29,7 +29,7 @@ const ReviewDetail = () => {
   // 게시물 가져오기
   const loadData = async () => {
     try {
-      const res = await axios.post(`http://localhost:9070/review/detail/${br_no}`);
+      const res = await axios.post(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/review/detail/${br_no}`);
 
       setReviewData(res.data);
     } catch (err) {
@@ -41,7 +41,7 @@ const ReviewDetail = () => {
   const boardDelete = async (br_no) => {
     if (window.confirm('해당 게시글을 삭제하시겠습니까?')) {
       try {
-        await axios.delete(`http://localhost:9070/review/detail/${br_no}`);
+        await axios.delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/review/detail/${br_no}`);
 
         alert('해당 게시글이 삭제되었습니다. 맛집 목록 페이지로 이동합니다.');
         navigate('/review');
@@ -61,7 +61,7 @@ const ReviewDetail = () => {
         <div className="review-con" key={reviewData.br_no}>
           <div className="profile-area">
             <div className="img-box">
-              <img src={`http://localhost:9070/uploads/user/${reviewData.u_pic}`} alt={`${reviewData.u_nick} 프로필`} />
+              <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/user/${reviewData.u_pic}`} alt={`${reviewData.u_nick} 프로필`} />
             </div>
             <div className="txt-box">
               <strong className='name'>
@@ -93,31 +93,31 @@ const ReviewDetail = () => {
             {
               reviewData.br_img &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img}`} alt={`${reviewData.rt_name} 대표`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img}`} alt={`${reviewData.rt_name} 대표`} />
               </div>
             }
             {
               reviewData.br_img2 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img2}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img2}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img3 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img3}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img3}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img4 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img4}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img4}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
             {
               reviewData.br_img5 &&
               <div className="img-box">
-                <img src={`http://localhost:9070/uploads/review/${reviewData.br_img5}`} alt={`${reviewData.rt_name} 서브`} />
+                <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/review/${reviewData.br_img5}`} alt={`${reviewData.rt_name} 서브`} />
               </div>
             }
           </div>

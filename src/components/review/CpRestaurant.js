@@ -15,7 +15,7 @@ const CpRestaurant = ({ category, filter, mypageUser, searchKeyword }) => {
 
   const loadData = async () => {
     try {
-      const res = await axios.post('http://localhost:9070/restaurant', restaurantInfo);
+      const res = await axios.post('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/restaurant', restaurantInfo);
 
       setRestaurantData(res.data);
     } catch (err) {
@@ -54,7 +54,7 @@ const CpRestaurant = ({ category, filter, mypageUser, searchKeyword }) => {
             <li key={item.rt_no}>
               <Link to={`/review/restaurant/detail/${item.rt_no}`}>
                 <div className="img-box">
-                  <img src={`http://localhost:9070/uploads/restaurant/${item.rt_img}`} alt={`${item.rt_name}`} />
+                  <img src={`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/uploads/restaurant/${item.rt_img}`} alt={`${item.rt_name}`} />
                 </div>
                 <div className="txt-box">
                   <h3 className="tit">{item.rt_name}</h3>

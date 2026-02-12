@@ -21,7 +21,7 @@ function CommunityList(props) {
   const [data, setData] = useState([]);
 
   const loadData = () => {
-    axios.get('http://localhost:9070/communitylist')
+    axios.get('https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/communitylist')
       .then(res => {
         setData(res.data);
       })
@@ -36,7 +36,7 @@ function CommunityList(props) {
     if (window.confirm(`${u_nick}님의 게시물을 삭제하시겠습니까?`)) {
       try {
         await axios
-          .delete(`http://localhost:9070/admin/community/${bc_no}`);
+          .delete(`https://port-0-eatmate-back-mlemabht2ba26588.sel3.cloudtype.app/admin/community/${bc_no}`);
 
         alert(`선택하신 ${u_nick}님의 게시글을 삭제했습니다.`);
         loadData();
